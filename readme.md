@@ -1,68 +1,98 @@
-<mxfile>
-  <diagram name="Aprovisionamiento Yealink Zoom">
-    <mxGraphModel dx="1000" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1">
-      <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
+# 📡 Yealink Auto-Provisioning with Zoom
 
-        <mxCell id="telefono" value="Teléfono Yealink" style="shape=rectangle;fillColor=#dae8fc;" vertex="1" parent="1">
-          <mxGeometry x="50" y="200" width="140" height="60" as="geometry"/>
-        </mxCell>
+## 📖 Overview
 
-        <mxCell id="dhcp" value="Servidor DHCP" style="shape=rectangle;fillColor=#d5e8d4;" vertex="1" parent="1">
-          <mxGeometry x="250" y="50" width="140" height="60" as="geometry"/>
-        </mxCell>
+This document describes the end-to-end provisioning workflow of a Yealink device integrating with Zoom services.
+It includes network initialization, security validation, cloud provisioning, and SIP registration.
 
-        <mxCell id="fw" value="Firewall" style="shape=rectangle;fillColor=#f8cecc;" vertex="1" parent="1">
-          <mxGeometry x="250" y="200" width="140" height="60" as="geometry"/>
-        </mxCell>
+---
 
-        <mxCell id="rps" value="Servidor RPS Yealink" style="shape=rectangle;fillColor=#fff2cc;" vertex="1" parent="1">
-          <mxGeometry x="500" y="50" width="180" height="60" as="geometry"/>
-        </mxCell>
+## 🔄 Provisioning Flow Diagram
 
-        <mxCell id="zoomprov" value="Servidor Zoom (Provisionamiento)" style="shape=rectangle;fillColor=#e1d5e7;" vertex="1" parent="1">
-          <mxGeometry x="500" y="200" width="200" height="60" as="geometry"/>
-        </mxCell>
+```mermaid
+sequenceDiagram
+    autonumber
+    participant T as Yealink Phone
+    participant D as DHCP Server
+    participant F as Firewall
+    participant R as Yealink RPS
+    participant Z as Zoom Provisioning
+    participant P as Zoom SIP Proxy
 
-        <mxCell id="proxy" value="Proxy Zoom" style="shape=rectangle;fillColor=#e1d5e7;" vertex="1" parent="1">
-          <mxGeometry x="750" y="200" width="140" height="60" as="geometry"/>
-        </mxCell>
+    T->>D: DHCP Discover (IP Request)
+    D-->>T: DHCP Offer (IP Assigned)
 
-        <!-- Conexiones -->
-        <mxCell id="e1" style="endArrow=block;" edge="1" parent="1" source="telefono" target="dhcp">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    T->>F: Internet Access Request
+    F-->>T: ✔ Traffic Allowed (HTTPS / DNS / SIP)
 
-        <mxCell id="e2" style="endArrow=block;" edge="1" parent="1" source="dhcp" target="telefono">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    T->>R: HTTPS Request (Provisioning)
+    R-->>T: Authentication Required
 
-        <mxCell id="e3" style="endArrow=block;" edge="1" parent="1" source="telefono" target="fw">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    T->>R: Send Device Identity (MAC/SN)
+    R-->>T: ✔ Validated → Redirect to Zoom
 
-        <mxCell id="e4" style="endArrow=block;" edge="1" parent="1" source="fw" target="rps">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    T->>Z: HTTPS Provisioning Request
+    Z-->>T: ✔ Configuration Download
 
-        <mxCell id="e5" style="endArrow=block;" edge="1" parent="1" source="rps" target="telefono">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    T->>P: SIP REGISTER
+    P-->>T: ✔ 200 OK (Registration Successful)
+```
 
-        <mxCell id="e6" style="endArrow=block;" edge="1" parent="1" source="telefono" target="zoomprov">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+---
 
-        <mxCell id="e7" style="endArrow=block;" edge="1" parent="1" source="zoomprov" target="telefono">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+## 🧠 Process Breakdown
 
-        <mxCell id="e8" style="endArrow=block;" edge="1" parent="1" source="telefono" target="proxy">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+### 1. Network Initialization
 
-      </root>
-    </mxGraphModel>
-  </diagram>
-</mxfile>
+* Device requests IP address via DHCP
+* Network parameters are assigned
+
+### 2. Security Validation
+
+* Firewall evaluates outbound traffic
+* Required protocols are allowed
+
+### 3. Device Authentication
+
+* Yealink RPS validates device identity
+* Redirects device to Zoom provisioning platform
+
+### 4. Service Provisioning
+
+* Device downloads configuration from Zoom
+
+### 5. SIP Registration
+
+* Device registers against Zoom SIP Proxy
+* Communication is established
+
+---
+
+## 🌐 Network Requirements
+
+| Service | Protocol | Port        |
+| ------- | -------- | ----------- |
+| DHCP    | UDP      | 67/68       |
+| DNS     | UDP/TCP  | 53          |
+| HTTPS   | TCP      | 443         |
+| SIP     | UDP/TCP  | 5060 / 5061 |
+
+---
+
+## ✅ Result
+
+✔ Device successfully provisioned
+✔ Configuration applied
+✔ SIP Registration Successful
+✔ Ready for operation
+
+---
+
+## 🔐 Notes
+
+* Ensure firewall policies allow outbound HTTPS, DNS, and SIP
+* Verify DNS resolution for Yealink and Zoom services
+* RPS access is required for zero-touch provisioning
+
+---
+
