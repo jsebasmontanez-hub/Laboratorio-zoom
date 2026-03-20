@@ -9,7 +9,7 @@ It includes network initialization, security validation, cloud provisioning, and
 ## 🔄 Yealink Automatic Phone Provisioning Diagram with Zoom
 
 <p align="center">
-  <img src=
+  <img src=Gemini_Generated_Image_r14b1tr14b1tr14b (2).png
        alt="Descripción de la imagen" 
        style="width: 1000px; 
               filter: contrast(150%); 
