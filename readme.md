@@ -1,4 +1,4 @@
-# 🔄 Auto-Provisioning de Dispositivos Yealink Integrados con Zoom Phone
+# Customer Firewall and Network Requirements for Zoom Phone Deployment with Yealink Devices
 
 **Autor:** Jhoan Sebastian Montañez Alvis  
 Estudiante de Ingeniería de Telecomunicaciones (8° semestre)  
