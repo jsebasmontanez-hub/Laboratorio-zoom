@@ -11,7 +11,7 @@ It includes network initialization, security validation, cloud provisioning, and
 <p align="center">
   <img src=Gemini_Generated_Image_r14b1tr14b1tr14b (2).png
        alt="Descripción de la imagen" 
-       style="width: 1000px; 
+       style="width: 500px; 
               filter: contrast(150%); 
               display: block; 
               margin: 0 auto;">
