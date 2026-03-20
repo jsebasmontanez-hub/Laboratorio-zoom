@@ -8,7 +8,14 @@ It includes network initialization, security validation, cloud provisioning, and
 ---
 ## 🔄 Yealink Automatic Phone Provisioning Diagram with Zoom
 
-
+<p align="center">
+  <img src=
+       alt="Descripción de la imagen" 
+       style="width: 1000px; 
+              filter: contrast(150%); 
+              display: block; 
+              margin: 0 auto;">
+</p>
 
 ```mermaid id="finalpro1"
 sequenceDiagram
