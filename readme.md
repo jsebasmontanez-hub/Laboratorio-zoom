@@ -40,7 +40,7 @@ La implementación del sistema de auto-provisionamiento se basa en los siguiente
 ## 🔄 Yealink Automatic Phone Provisioning Diagram with Zoom
 
 <p align="center">
-  <img src="Gemini_Generated_Image_r14b1tr14b1tr14b (2).png"
+  <img src="imagen.png"
        alt="Descripción de la imagen" 
        style="width: 850px; 
               filter: contrast(150%); 
